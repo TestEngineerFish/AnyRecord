@@ -45,14 +45,14 @@ const Login = ({ setIsAuthenticated }: LoginProps) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex items-center justify-center bg-background py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900 dark:text-white">
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-primary">
             登录您的账号
           </h2>
           {error && (
-            <div className="mt-2 text-center text-sm text-red-600">
+            <div className="mt-2 text-center text-sm text-accent">
               {error}
             </div>
           )}
@@ -66,7 +66,7 @@ const Login = ({ setIsAuthenticated }: LoginProps) => {
                 name="email"
                 type="email"
                 required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-secondary placeholder-secondary text-text rounded-t-md focus:outline-none focus:ring-accent focus:border-accent focus:z-10 sm:text-sm"
                 placeholder="邮箱地址"
                 value={formData.email}
                 onChange={handleChange}
@@ -79,7 +79,7 @@ const Login = ({ setIsAuthenticated }: LoginProps) => {
                 name="password"
                 type="password"
                 required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-secondary placeholder-secondary text-text rounded-b-md focus:outline-none focus:ring-accent focus:border-accent focus:z-10 sm:text-sm"
                 placeholder="密码"
                 value={formData.password}
                 onChange={handleChange}
@@ -93,17 +93,17 @@ const Login = ({ setIsAuthenticated }: LoginProps) => {
                 id="remember-me"
                 name="rememberMe"
                 type="checkbox"
-                className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                className="h-4 w-4 text-accent focus:ring-accent border-secondary rounded"
                 checked={formData.rememberMe}
                 onChange={handleChange}
               />
-              <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900 dark:text-gray-300">
+              <label htmlFor="remember-me" className="ml-2 block text-sm text-text">
                 记住我
               </label>
             </div>
 
             <div className="text-sm">
-              <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
+              <a href="#" className="font-medium text-accent hover:text-secondary">
                 忘记密码？
               </a>
             </div>
@@ -112,7 +112,7 @@ const Login = ({ setIsAuthenticated }: LoginProps) => {
           <div>
             <button
               type="submit"
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent"
             >
               登录
             </button>
@@ -122,7 +122,7 @@ const Login = ({ setIsAuthenticated }: LoginProps) => {
         <div className="mt-6">
           <button
             onClick={() => navigate('/guest')}
-            className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+            className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-accent hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
           >
             以访客模式使用（数据不保存）
           </button>

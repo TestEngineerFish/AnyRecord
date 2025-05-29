@@ -7,7 +7,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        // 可以在这里添加自定义颜色
+        primary: '#FFE600',      // 明亮黄
+        secondary: '#4DD7FA',    // 天蓝
+        accent: '#FF6EC7',       // 粉色
+        background: '#F5FCFF',  // 浅蓝白
+        text: '#222222',         // 深灰
       },
     },
   },
