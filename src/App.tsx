@@ -1,3 +1,4 @@
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import AuthRoutes from './routes/AuthRoutes';
@@ -6,6 +7,9 @@ import MainLayout from './components/Layout/MainLayout';
 import Login from './pages/Auth/Login';
 import MasterPassword from './pages/Auth/MasterPassword';
 import { cryptoService } from './services/crypto';
+import Home from './pages/Home';
+import TestRDS from './pages/TestRDS';
+import { useAuth } from './contexts/AuthContext';
 
 function AppContent() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -68,12 +72,35 @@ function AppContent() {
   );
 }
 
-function App() {
+const PrivateRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const { isAuthenticated } = useAuth();
+  return isAuthenticated ? <>{children}</> : <Navigate to="/login" />;
+};
+
+const App: React.FC = () => {
   return (
     <Router>
       <AppContent />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <PrivateRoute>
+              <Home />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/test-rds"
+          element={
+            <PrivateRoute>
+              <TestRDS />
+            </PrivateRoute>
+          }
+        />
+      </Routes>
     </Router>
   );
-}
+};
 
 export default App;
