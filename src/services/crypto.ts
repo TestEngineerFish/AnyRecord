@@ -1,3 +1,4 @@
+/// <reference lib="dom" />
 import { openDB, type IDBPDatabase } from 'idb';
 
 // 加密配置

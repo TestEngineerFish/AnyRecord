@@ -52,9 +52,7 @@
     ]
   },
   "devDependencies": {
-    "@vitejs/plugin-react": "^4.5.2",
     "concurrently": "^8.2.2",
-    "ts-node": "^10.9.2",
-    "vite": "^6.3.5"
+    "ts-node": "^10.9.2"
   }
 }
