@@ -1,3 +1,4 @@
+import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Login from '../pages/Auth/Login';
@@ -36,7 +37,7 @@ const AppRoutes = () => {
 
   return (
     <Routes>
-      <Route path="/login" element={<Login />} />
+      <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
       <Route path="/register" element={<Register />} />
       <Route
         path="/master-password"
