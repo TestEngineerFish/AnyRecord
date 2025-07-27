@@ -7,19 +7,22 @@ import MainLayout from './components/Layout/MainLayout';
 import Login from './pages/Auth/Login';
 import MasterPassword from './pages/Auth/MasterPassword';
 import { cryptoService } from './services/crypto';
-import Home from './pages/Home';
-import TestRDS from './pages/TestRDS';
-import { useAuth } from './contexts/AuthContext';
+import { useAuth, AuthProvider } from './contexts/AuthContext';
 
 function AppContent() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const { isAuthenticated, isGuestMode } = useAuth();
   const [isLoading, setIsLoading] = useState(true);
   const [hasMasterPassword, setHasMasterPassword] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
+    // 如果已经是游客模式，跳过主密码检查
+    if (isGuestMode) {
+      setIsLoading(false);
+      return;
+    }
     checkMasterPassword();
-  }, []);
+  }, [isGuestMode]);
 
   const checkMasterPassword = async () => {
     try {
@@ -39,13 +42,20 @@ function AppContent() {
   };
 
   if (isLoading) {
-    return <div>加载中...</div>;
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-primary-50 to-neutral-50">
+        <div className="text-center animate-fade-in">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
+          <p className="text-neutral-600">加载中...</p>
+        </div>
+      </div>
+    );
   }
 
   return (
     <Routes>
-      {/* 主密码设置路由 */}
-      {!hasMasterPassword && (
+      {/* 主密码设置路由 - 只在非游客模式下显示 */}
+      {!isGuestMode && !hasMasterPassword && (
         <Route path="/master-password" element={<MasterPassword />} />
       )}
 
@@ -61,44 +71,18 @@ function AppContent() {
         </Route>
       )}
 
-      {/* 登录路由 */}
-      <Route path="/login" element={
-        <Login setIsAuthenticated={setIsAuthenticated} />
-      } />
-
       {/* 默认重定向 */}
       <Route path="*" element={<Navigate to={isAuthenticated ? "/" : "/login"} replace />} />
     </Routes>
   );
 }
 
-const PrivateRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { isAuthenticated } = useAuth();
-  return isAuthenticated ? <>{children}</> : <Navigate to="/login" />;
-};
-
 const App: React.FC = () => {
   return (
     <Router>
-      <AppContent />
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <PrivateRoute>
-              <Home />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/test-rds"
-          element={
-            <PrivateRoute>
-              <TestRDS />
-            </PrivateRoute>
-          }
-        />
-      </Routes>
+      <AuthProvider>
+        <AppContent />
+      </AuthProvider>
     </Router>
   );
 };
